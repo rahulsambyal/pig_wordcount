@@ -1,0 +1,5 @@
+loading = load '/home/cloudera/family.txt' as (line:chararray);
+words = foreach loading generate flatten(tokenize(line)) as word;
+grouped = group words by word;
+wordcount = foreach grouped generate group, count(words);
+store wordcount '/home/cloudera/family';
